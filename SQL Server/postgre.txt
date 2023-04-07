@@ -1,0 +1,121 @@
+************************************************** PostGres *************************************************
+
+create table public.person(
+id int,
+first_name VARCHAR(50),
+last_name VARCHAR(50),
+gender VARCHAR(7),
+date_of_birth DATE);
+
+select * from person
+
+insert into person(id,first_name,last_name,gender,date_of_birth)values('1','kishan','vaghela','male',DATE '06-11-2001');
+insert into person(id,first_name,last_name,gender,date_of_birth)values('2','kirtan','doshi','male',DATE '24-04-2002');
+insert into person(id,first_name,last_name,gender,date_of_birth)values('3','nishit','kamani','male',DATE '21-05-2002');
+insert into person(id,first_name,last_name,gender,date_of_birth)values('4','raj','boda','male',DATE '24-01-2002');
+
+drop table person;
+
+
+create table person1(
+id bigserial not null primary key,
+first_name VARCHAR(50) not null,
+last_name VARCHAR(50) not null,
+gender VARCHAR(7)not null,
+date_of_birth DATE not null,
+email varchar(150));
+
+select * from person1;
+drop table person1;
+
+insert INTO person1(first_name,last_name,gender,date_of_birth,email)values('kishan','vaghela','male',DATE '06-11-2001','vaghelakishan59@gmail.com');
+insert INTO person1(first_name,last_name,gender,date_of_birth,email)values('kirtan','doshi','male',DATE '24-04-2002','');
+insert INTO person1(first_name,last_name,gender,date_of_birth,email)values('nishit','kamani','male',DATE '21-05-2002','');
+insert INTO person1(first_name,last_name,gender,date_of_birth,email)values('raj','boda','male',DATE '24-01-2002','');
+
+
+
+create table person2 (
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	email VARCHAR(150),
+	gender VARCHAR(50) NOT NULL,
+	date_of_birth DATE NOT NULL,
+	Country_of_birth VARCHAR(50)
+);
+drop table person2;
+select * from person2;
+select from  person2
+
+
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Wandie', 'Escalante', null, 'Genderqueer', '26.05.2022', 'Poland');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Neel', 'Pyle', 'npyle1@printfriendly.com', 'Male', '01.01.2023', 'Armenia');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Orelia', 'Nockells', 'onockells2@last.fm', 'Female', '02.01.2023', 'Argentina');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Barnabas', 'Wolverson', 'bwolverson3@nymag.com', 'Male', '25.06.2022', 'Russia');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Worthy', 'Coddrington', 'wcoddrington4@tiny.cc', 'Male', '02.07.2022', 'Thailand');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Fairfax', 'Waker', null, 'Male', '17.04.2022', 'Czech Republic');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Palm', 'Lindenboim', null, 'Male', '05.01.2023', 'Argentina');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Isidor', 'Dickens', 'idickens7@adobe.com', 'Male', '29.09.2022', 'Ecuador');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Terrel', 'Fost', 'tfost8@mlb.com', 'Male', '16.09.2022', 'China');
+insert into person2 (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Cathrin', 'Cleevely', null, 'Female', '24.06.2022', 'Mexico');
+
+----------------------------ORDER BY------------------------------
+select * from person2;
+select from  person2
+select * from person2 order by Country_of_birth DESC;
+select * from person2 order by Country_of_birth ASC;
+select * from person2 order by Country_of_birth;
+
+ 
+---------------------------- DISTINCT ------------------------------
+SELECT Country_of_birth FROM person2
+SELECT Country_of_birth FROM person2 ORDER BY Country_of_birth;
+SELECT DISTINCT Country_of_birth FROM person2 ORDER BY Country_of_birth;
+SELECT DISTINCT Country_of_birth FROM person2 ORDER BY Country_of_birth desc;
+
+---------------------------- WHERE AND CLAUSE ------------------------------
+select  * from person2 where gender = 'Female';
+select  * from person2 where gender = 'Male';
+select  * from person2 where gender = 'Male' and Country_of_birth = 'Ecuador';
+select  * from person2 where gender = 'Male' and (Country_of_birth = 'Ecuador' or Country_of_birth='Armenia');
+
+
+----------------------------Comparison Operators ------------------------------
+select 1=1  --true 
+select 1=2 --false 
+select 1<2
+select 1<=2
+select 1>2
+
+---------------------------- Offset ------------------------------
+SELECT * FROM person2 LIMIT 5;
+SELECT * FROM person2 offset 5 LIMIT 5;   --after 5 start & next 5 row show
+SELECT * FROM person2 offset 3;     --after 3 start
+SELECT * FROM person2 offset 5 fetch first 1 row only; 
+
+
+---------------------------- IN ------------------------------
+select * from person2 where Country_of_birth='Maxico'
+or Country_of_birth = 'China' or Country_of_birth='Ecuador';
+select * from person2 where Country_of_birth IN('Maxico','China','Russia');
+select * from person2 where Country_of_birth in ('Maxico','China','Russia','Poland') order by Country_of_birth;
+
+
+---------------------------- BETWEEN ------------------------------
+select * from person2 where date_of_birth between date '01-11-2022' and '01-05-2023';
+
+
+---------------------------- LIKE & iLIKE------------------------------
+select * from person2 where email like '%.com';  --only show .com emails
+select * from person2 where email like '%@adobe.com';
+select * from person2 where Country_of_birth like 'P%';
+select * from person2 where Country_of_birth ilike 'p%';  --- ilike simply ignore a case-sensitive
+
+---------------------------- GROUP BY ------------------------------
+select distinct Country_of_birth from person2;
+select Country_of_birth from person2 group by Country_of_birth;
+select Country_of_birth ,count(*) from person2 group by Country_of_birth;
+select Country_of_birth, count(*) from person2 group by Country_of_birth order by Country_of_birth;
+
+
+---------------------------- GROUP BY HAVING ------------------------------
